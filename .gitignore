@@ -1,0 +1,15 @@
+# Java / Maven
+target/
+
+# Node
+node_modules/
+
+# Secretos & Environment Variables
+.env
+.env.*
+!.env.*.example
+
+# OpenTofu / Terraform
+*.tfstate
+*.tfstate.*
+.terraform/

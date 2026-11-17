@@ -1,0 +1,19 @@
+name: tlacuilo-tools
+services:
+  mvn:
+    image: maven:3.9-eclipse-temurin-25     
+    entrypoint: ["mvn", "-Duser.home=/var/maven"]
+    working_dir: /workspace
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"     
+    group_add: ["${DOCKER_GID:-999}"]                
+    environment:
+      HOME: /tmp
+      MAVEN_CONFIG: /var/maven/.m2
+      TESTCONTAINERS_HOST_OVERRIDE: localhost
+    volumes:
+      - ../..:/workspace                            
+      - ${HOME}/.m2:/var/maven/.m2                   
+      - /var/run/docker.sock:/var/run/docker.sock 
+    env_file:
+      - .env.dev
+    network_mode: host
