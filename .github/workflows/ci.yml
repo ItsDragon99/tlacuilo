@@ -1,0 +1,28 @@
+name: ci
+on:
+  pull_request:
+  push: 
+    branches: [main] 
+permissions: 
+  contents: read 
+  pull_request: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Scan repository for secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: "25", cache: maven }
+      - run: ./mvnw -B -ntp verify
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with: { name: reports, path: "**/target/site/jacoco/**" }

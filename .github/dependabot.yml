@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    ignore:
+      - dependency-name: "org.apache.maven.plugins:maven-compiler-plugin"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+
+  - package-ecosystem: "docker-compose"
+    directory: "/deploy/compose"
+    schedule:
+      interval: "monthly"

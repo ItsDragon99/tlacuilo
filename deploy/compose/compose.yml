@@ -1,0 +1,27 @@
+name: tlacuilo
+services:
+  postgres:
+    profiles: ["core"]
+    image: postgres:18.7
+    environment:
+      POSTGRES_DB: tlacuilo
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      LEDGER_OWNER_PW: ${LEDGER_OWNER_PW}
+      LEDGER_APP_PW: ${LEDGER_APP_PW}
+      PAYMENTS_OWNER_PW: ${PAYMENTS_OWNER_PW}
+      PAYMENTS_APP_PW: ${PAYMENTS_APP_PW}
+      ACCOUNTS_OWNER_PW: ${ACCOUNTS_OWNER_PW}
+      ACCOUNTS_APP_PW: ${ACCOUNTS_APP_PW}
+      RISKS_OWNER_PW: ${RISKS_OWNER_PW}
+      RISKS_APP_PW: ${RISKS_APP_PW}
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ./init-db:/docker-entrypoint-initdb.d:ro  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d tlacuilo"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+volumes:
+  pgdata:

@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tlacuilo
+    username: ledger_app
+    password: ${LEDGER_APP_PW}
+
+  flyway:
+    user: ledger_owner
+    password: ${LEDGER_OWNER_PW}
+    schemas: ledger
+    default-schema: ledger
+
+management:
+  server:
+    port: 9082
+  endpoints:
+    web:
+      exposure:
+        include: health

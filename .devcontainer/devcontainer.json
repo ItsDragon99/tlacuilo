@@ -1,0 +1,31 @@
+{
+  "name": "tlacuilo",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+  "workspaceFolder": "${localWorkspaceFolder}",
+  "runArgs": ["--network=host"],
+  "containerEnv": {
+    "DEVCONTAINER": "true",
+    "TESTCONTAINERS_HOST_OVERRIDE": "localhost"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "25",
+      "installMaven": "false"
+    },
+    "ghcr.io/devcontainers/features/node:1": { "version": "26" },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  },
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y make",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-boot-dev-pack",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "redhat.vscode-yaml"
+      ]
+    }
+  }
+}

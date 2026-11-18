@@ -1,0 +1,27 @@
+CREATE ROLE ledger_owner LOGIN PASSWORD :'ledger_owner_pw';     
+CREATE ROLE ledger_app   LOGIN PASSWORD :'ledger_app_pw';      
+
+CREATE ROLE payments_owner LOGIN PASSWORD :'payments_owner_pw';     
+CREATE ROLE payments_app   LOGIN PASSWORD :'payments_app_pw';      
+
+CREATE ROLE account_owner LOGIN PASSWORD :'accounts_owner_pw';     
+CREATE ROLE account_app   LOGIN PASSWORD :'accounts_app_pw';      
+
+CREATE ROLE risk_owner LOGIN PASSWORD :'risks_owner_pw';     
+CREATE ROLE risk_app   LOGIN PASSWORD :'risks_app_pw';      
+
+
+CREATE SCHEMA ledger AUTHORIZATION ledger_owner;
+CREATE SCHEMA payments AUTHORIZATION payments_owner;
+CREATE SCHEMA account AUTHORIZATION account_owner;
+CREATE SCHEMA risk AUTHORIZATION risk_owner;
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+
+
+GRANT USAGE ON SCHEMA ledger TO ledger_app;
+GRANT USAGE ON SCHEMA payments TO payments_app;
+GRANT USAGE ON SCHEMA account TO account_app;
+GRANT USAGE ON SCHEMA risk TO risk_app;
+
+
